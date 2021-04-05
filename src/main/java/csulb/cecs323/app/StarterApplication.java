@@ -13,13 +13,8 @@
 package csulb.cecs323.app;
 
 import csulb.cecs323.model.Student;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -28,19 +23,21 @@ import java.util.logging.Logger;
  * This is for demonstration and educational purposes only.
  */
 public class StarterApplication {
-   private EntityManager entityManager;
+   private final EntityManager entityManager;
+   private final Scanner userInput;
 
    private static final Logger LOGGER = Logger.getLogger(StarterApplication.class.getName());
 
    public StarterApplication(EntityManager manager) {
       this.entityManager = manager;
+      userInput = new Scanner(System.in);
    }
 
    public static void main(String[] args) {
       LOGGER.fine("Creating EntityManagerFactory and EntityManager");
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("starter_unit");
       EntityManager manager = factory.createEntityManager();
-      StarterApplication hw4application = new StarterApplication(manager);
+      StarterApplication application = new StarterApplication(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -51,11 +48,46 @@ public class StarterApplication {
 
       tx.begin();
 
-      hw4application.createStudentEntity();
+      application.createStudentEntity();
 
       tx.commit();
+
+      // Starts a different transaction to create programs and set majors for students
+      tx.begin();
+      application.createPrograms();  // Task 3.1: create academic programs
+      application.addMajors();       // Task 3.2: declare major for students
+      tx.commit();
+
+      application.showStudents();   // Task 3.3: list students and their majors
+
       LOGGER.fine("End of Transaction");
 
+   }
+
+
+   /**
+    * Prompts user for information about academic programs to add
+    */
+   public void createPrograms() {
+      // TODO: to be completed
+      // NOTE: You can use the Scanner object userInput declared at line 27 to read input from the user
+   }
+
+   /**
+    * Shows a list of students without a declared major, user selects one, then a list of
+    * academic programs is shown for the user to select the one to be the student's declared major.
+    */
+   public void addMajors() {
+      // TODO: to be completed
+      // NOTE: You can use the Scanner object userInput declared at line 27 to read input from the user
+   }
+
+   /**
+    * Shows a list of all students including their major. For students without a declared major,
+    * it shows they are undeclared.
+    */
+   public void showStudents() {
+      // TODO: To be completed
    }
 
    /**
@@ -75,6 +107,7 @@ public class StarterApplication {
       student = new Student();
       student.setFirstName("Steve");
       student.setLastName("Wozniak");
+      student.setEmail("woz@apple.com");
       student.setGpa(3.9);
 
       students.add(student);

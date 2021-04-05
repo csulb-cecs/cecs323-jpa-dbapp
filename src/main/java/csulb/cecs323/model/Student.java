@@ -32,6 +32,9 @@ public class Student {
    private double gpa;
    private String email;
 
+   @ManyToOne
+   private AcademicProgram major;
+
    // You must follow Java naming convention for accessors/mutators
 
    public Long getId() {
@@ -76,5 +79,13 @@ public class Student {
 
    public String toString() {
       return String.format("Student[id=%d, %s %s, %s, %.2f]", id, firstName, lastName, email, gpa);
+   }
+
+   public AcademicProgram getMajor() {
+      return major;
+   }
+
+   public void setMajor(AcademicProgram major) {
+      this.major = major;
    }
 }
