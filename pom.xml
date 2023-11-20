@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.14.2.0</version> <!-- 10.15.2.0 does not work, not clear why-->
+			<version>10.17.1.0</version> <!-- 10.15.2.0 does not work, not clear why-->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
